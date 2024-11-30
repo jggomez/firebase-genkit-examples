@@ -1,0 +1,24 @@
+{
+  "name": "genkit-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Gomez",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/data-urls": "^3.0.4",
+    "genkit-cli": "^0.9.6"
+  },
+  "dependencies": {
+    "@genkit-ai/dev-local-vectorstore": "^0.9.6",
+    "@genkit-ai/googleai": "^0.9.6",
+    "@genkit-ai/vertexai": "^0.9.6",
+    "data-urls": "^5.0.0",
+    "genkit": "^0.9.6",
+    "llm-chunk": "^0.0.1",
+    "pdf-parse": "^1.1.1"
+  }
+}
