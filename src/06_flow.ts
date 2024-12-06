@@ -1,26 +1,34 @@
 import { gemini15Flash, googleAI } from "@genkit-ai/googleai";
 import { genkit, z } from "genkit";
+import { readFile } from 'node:fs/promises';
 
 const ai = genkit({
     plugins: [googleAI()],
+    model: gemini15Flash,
 });
 
-const MenuItemSchema = z.object({
-    dishname: z.string(),
+const BlogPostSchema = z.object({
+    title: z.string(),
     description: z.string(),
 });
 
-export const menuSuggestionFlowWithSchema = ai.defineFlow(
+export const BlogPostFlowWithSchema = ai.defineFlow(
     {
-        name: 'menuSuggestionFlow',
-        inputSchema: z.string(),
-        outputSchema: MenuItemSchema,
+        name: 'BlogPostFlow',
+        inputSchema: z.void(),
+        outputSchema: BlogPostSchema,
     },
-    async (restaurantTheme) => {
+    async () => {
+        const b64Data = await readFile('Ajolote.jpeg', { encoding: 'base64url' });
+        const dataUrl = `data:image/jpeg;base64,${b64Data}`;
+        const { text } = await ai.generate([
+            { media: { url: dataUrl } },
+            { text: 'What animals are in the photo?' },
+        ])
         const { output } = await ai.generate({
             model: gemini15Flash,
-            prompt: `Invent a menu item for a ${restaurantTheme} themed restaurant.`,
-            output: { schema: MenuItemSchema },
+            prompt: `Create a blog post for national geographic over this animal ${text}`,
+            output: { schema: BlogPostSchema },
         });
         if (output == null) {
             throw new Error("Response doesn't satisfy schema.");
@@ -31,7 +39,7 @@ export const menuSuggestionFlowWithSchema = ai.defineFlow(
 
 
 (async () => {
-    const { dishname, description } = await menuSuggestionFlowWithSchema('bistro');
-    console.log(dishname);
+    const { title, description } = await BlogPostFlowWithSchema();
+    console.log(title);
     console.log(description);
 })();

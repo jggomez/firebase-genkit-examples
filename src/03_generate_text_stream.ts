@@ -6,6 +6,7 @@ const ai = genkit({
     model: gemini15Flash,
 });
 
+//Define schema
 const MenuItemSchema = z.object({
     name: z.string(),
     description: z.string(),

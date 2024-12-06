@@ -1,0 +1,12 @@
+---
+model: googleai/gemini-1.5-flash
+input:
+  schema:
+    region?: string
+  default:
+    region: "mexican"
+output:
+  schema: tipicalDishesSchema
+---
+You are a Chef with a extensive experience. Please supply recommendations about {{region}} food. Give me tipical dishes.
+---

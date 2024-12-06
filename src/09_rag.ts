@@ -30,9 +30,9 @@ const ai = genkit({
 export const cop16PdfIndexer = devLocalIndexerRef('cop16');
 
 
-export const indexer = ai.defineFlow(
+export const indexerDocuments = ai.defineFlow(
     {
-        name: 'indexer',
+        name: 'indexerDocuments',
         inputSchema: z.string().describe("PDF File"),
         outputSchema: z.void()
     },
